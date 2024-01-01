@@ -1,0 +1,123 @@
+.Navbar {
+  background-color: $body-bg;
+  border-bottom: 1px solid $borderColor;
+  width: 100%;
+  min-height: 4em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+
+    .navItem {
+      display: flex;
+      align-items: center;
+      margin-left: 20px;
+      padding: 10px;
+      border-radius: 5px;
+      color: $bodyTextColor;
+      text-decoration: none;
+
+      &:hover {
+        background-color: #e9ecec;
+      }
+
+      span {
+        margin-left: 10px;
+      }
+
+      svg {
+        width: 25px !important;
+        height: 25px !important;
+      }
+
+      i {
+        margin-left: 10px;
+      }
+    }
+
+    .navItemActive {
+      background-color: #e9ecec;
+    }
+
+    .dropdown#nav-dropdown {
+      .dropdown-toggle::after {
+        display: none;
+      }
+
+      .dropdown-menu {
+        inset: unset !important;
+        margin: unset !important;
+        transform: unset !important;
+        top: 45px !important;
+        left: 19px !important;
+        padding: 0.7rem 0;
+        min-width: 16em;
+
+        a {
+          text-decoration: none;
+
+          .dropdown-item {
+            display: flex;
+            align-items: center;
+            color: $headingTextColor;
+
+            i {
+              margin-right: 0.5em;
+              font-size: 1.2em;
+            }
+          }
+
+          &:hover {
+            .dropdown-item {
+              padding-left: 2em;
+              transition: all 0.35s ease;
+              background: transparent;
+            }
+          }
+        }
+      }
+    }
+
+    .not-dev {
+      .bx.bx-caret-down {
+        display: none;
+      }
+    }
+  }
+
+  .flex-container#hidden {
+    display: flex;
+  }
+
+  @include lessThan(903px) {
+    border-bottom: none;
+    min-height: 0;
+
+    .flex-container {
+      display: none;
+    }
+
+    .flex-container#hidden {
+      z-index: 99;
+      background-color: $body-bg;
+      position: absolute;
+      left: 0;
+      top: 80px;
+      min-height: 280px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-bottom: 1px solid $borderColor;
+
+      & .navItem {
+        margin: 5px;
+      }
+    }
+  }
+}

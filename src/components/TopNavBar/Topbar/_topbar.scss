@@ -1,0 +1,202 @@
+.Topbar {
+  background-color: $primary;
+  color: $primaryText;
+  width: 100%;
+  min-height: 4em;
+  display: flex;
+
+  .leftSide,
+  .middle,
+  .rightSide {
+    display: flex;
+    align-items: center;
+  }
+
+  .leftSide {
+    flex: 25%;
+    justify-content: flex-start;
+
+    i {
+      margin-left: 20px;
+    }
+
+    span {
+      margin-left: 10px;
+    }
+
+    .bx-list-ul {
+      cursor: pointer;
+    }
+
+    .plan,
+    .wallet-quota {
+      text-transform: capitalize;
+    }
+
+    .hideShowNavName,
+    .plan,
+    .wallet-quota {
+      display: none;
+
+      @include greaterThan(904px) {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .nav-mobile {
+      display: none;
+
+      @include lessThan(903px) {
+        display: flex;
+      }
+    }
+  }
+
+  .middle {
+    flex: 50%;
+    justify-content: center;
+
+    .logo-wrapper {
+      padding: 0.3em;
+      border-radius: 30px;
+
+      img {
+        width: 74px;
+        height: 60px;
+      }
+    }
+
+    h2 {
+      color: $primaryText;
+      padding-left: 1rem;
+      letter-spacing: 0.01rem;
+      font-size: 1.4em;
+      font-weight: 400;
+      margin-bottom: 0;
+
+      @include lessThan(929px) {
+        font-size: 1.2em;
+      }
+    }
+  }
+
+  .rightSide {
+    flex: 25%;
+    justify-content: flex-end;
+
+    .dropdown#topbar-dropdown {
+      .dropdown-toggle::after {
+        display: none;
+      }
+
+      .dropdown-menu {
+        inset: unset !important;
+        transform: unset !important;
+        margin: unset !important;
+        top: 40px !important;
+        left: -111px !important;
+        padding: 0.5rem 0;
+
+        a {
+          text-decoration: none;
+        }
+
+        .dropdown-border {
+          border-top: 1px solid #dfe3e7;
+        }
+
+        .dropdown-item {
+          display: flex;
+          align-items: center;
+          color: $headingTextColor;
+          text-transform: uppercase;
+          font-size: 0.8em;
+
+          i {
+            margin-right: 0.5em;
+          }
+
+          &:hover {
+            .dropdown-item {
+              background-color: #f2f4f4;
+            }
+          }
+        }
+      }
+
+      .user-profile {
+        margin-left: 10px;
+        margin-right: 15px;
+        cursor: default;
+
+        &:after {
+          display: none;
+        }
+
+        .name-initials {
+          font-size: 14px;
+          font-weight: 600;
+          color: #fff;
+          text-align: center;
+          line-height: 31px;
+          width: 40px;
+          height: 40px;
+          margin: 0;
+          border-radius: 100%;
+          border: 5px solid #fff;
+
+          @include lessThan($screen-sm) {
+            width: 36px;
+            height: 36px;
+            margin-left: 10px;
+            margin-right: 10px;
+          }
+
+          &:selection {
+            background: transparent !important;
+          }
+        }
+
+        .userProfileImg {
+          img {
+            width: 40px;
+            height: auto;
+            border-radius: 100%;
+            object-fit: cover;
+
+            @include lessThan($screen-sm) {
+              width: 36px;
+              height: 36px;
+              margin-left: 10px;
+              margin-right: 10px;
+            }
+          }
+        }
+      }
+
+      .user-profile-dropdown {
+        padding: 20px 0px 0px 0px;
+
+        @include lessThan($screen-sm) {
+          padding: 15px 15px 0px 0px;
+        }
+
+        .username {
+          font-size: 0.9em;
+          font-weight: 600;
+          color: #143a62;
+
+          i {
+            font-size: 0.8em;
+          }
+        }
+      }
+
+      img {
+        width: 40px;
+        height: auto;
+      }
+    }
+  }
+}

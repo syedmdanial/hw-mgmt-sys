@@ -1,0 +1,251 @@
+.Login {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: $solidGrey;
+
+  .login-wrapper {
+    @include greaterThan($screen-md) {
+      box-shadow: 0px 0px 20px 13px #88888821;
+      position: absolute;
+      top: 5%;
+      bottom: 5%;
+      left: 12%;
+      right: 12%;
+    }
+
+    /* CSS FOR Ipad pro */ /* Portrait and Landscape */
+    @media only screen and (min-device-width: 992px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 1.5) {
+      box-shadow: 0px 0px 20px 13px #88888821;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    /* Portrait */
+    @media only screen and (min-device-width: 992px) and (max-device-width: 1366px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1.5) {
+      box-shadow: 0px 0px 20px 13px #88888821;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    /* Landscape */
+    @media only screen and (min-device-width: 992px) and (max-device-width: 1366px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1.5) {
+      box-shadow: 0px 0px 20px 13px #88888821;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    /* CSS FOR Ipad pro */ /* Portrait and Landscape */
+    @include lessThan($screen-md) {
+      .rightContainer {
+        display: none;
+      }
+      background-color: #fff;
+    }
+
+    .rightContainer {
+      background-color: $body-bg;
+      height: 100vh;
+      padding-top: 9%;
+      text-align: center;
+      color: white;
+      overflow: hidden;
+
+      @include greaterThan($screen-md) {
+        height: 90vh;
+      }
+
+      /* CSS FOR Ipad pro */ /* Portrait and Landscape */
+      @media only screen and (min-device-width: 992px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 1.5) {
+        height: 100vh;
+      }
+
+      /* Portrait */
+      @media only screen and (min-device-width: 992px) and (max-device-width: 1366px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1.5) {
+        height: 100vh;
+      }
+
+      /* Landscape */
+      @media only screen and (min-device-width: 992px) and (max-device-width: 1366px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1.5) {
+        height: 100vh;
+      }
+
+      /* CSS FOR Ipad pro */ /* Portrait and Landscape */
+      p {
+        font-size: 14px;
+      }
+
+      div[aria-label='animation'] {
+        height: fit-content !important;
+        pointer-events: none;
+      }
+    }
+
+    .leftContainer {
+      height: 100vh;
+      overflow: hidden;
+      @include greaterThan($screen-md) {
+        height: 90vh;
+      }
+
+      /* CSS FOR Ipad pro */ /* Portrait and Landscape */
+      @media only screen and (min-device-width: 992px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 1.5) {
+        height: 100vh;
+      }
+
+      /* Portrait */
+      @media only screen and (min-device-width: 992px) and (max-device-width: 1366px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1.5) {
+        height: 100vh;
+      }
+
+      /* Landscape */
+      @media only screen and (min-device-width: 992px) and (max-device-width: 1366px) and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 1.5) {
+        //min-device-width:1024px
+        height: 100vh;
+      }
+      /* CSS FOR Ipad pro */ /* Portrait and Landscape */
+
+      .text-divider {
+        display: flex;
+        align-items: center;
+        font-size: var(--text-sm);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        --text-divider-gap: 1rem;
+
+        &::before,
+        &::after {
+          content: '';
+          height: 1px;
+          background-color: silver;
+          flex-grow: 1;
+        }
+
+        &::before {
+          margin-right: var(--text-divider-gap);
+        }
+
+        &::after {
+          margin-left: var(--text-divider-gap);
+        }
+      }
+
+      .formContainer {
+        @include greaterThan($screen-md) {
+          margin-bottom: auto !important;
+        }
+
+        @include lessThan($screen-md) {
+          margin-bottom: 3em !important;
+        }
+
+        .logo-container {
+          display: inline-grid;
+          justify-items: center;
+          margin-top: 4em;
+          margin-bottom: 3em;
+
+          .login-logo {
+            width: 15em;
+            margin-left: 5em;
+
+            @include lessThan(1366px) {
+              width: 10em;
+              margin-left: 4em;
+            }
+          }
+
+          .go-beyond {
+            width: 10em;
+
+            @include lessThan(1366px) {
+              width: 8em;
+            }
+          }
+        }
+
+        form {
+          // input {
+          //   // height: 50px;
+          //   background-color: #f7f9fb;
+          // }
+
+          label {
+            color: $headingTextColor;
+            font-size: $labelFontSize;
+            text-transform: uppercase;
+          }
+
+          .form-check {
+            label {
+              text-transform: unset;
+              color: $linkText;
+            }
+          }
+
+          .forgot-password {
+            color: $linkText;
+            font-size: $labelFontSize;
+            background: none;
+            outline: none;
+            border: none;
+            box-shadow: none;
+            padding: 0;
+          }
+
+          .login-btn {
+            background-color: $primary;
+            color: $primaryText;
+            height: 50px;
+            font-size: 16px;
+            border-radius: 4px;
+
+            &:hover {
+              background-color: $secondary;
+            }
+          }
+
+          .resendEmail {
+            font-size: 0.8em;
+            color: #a0a2b7 !important;
+            &:hover {
+              cursor: pointer;
+              border-bottom: 1px solid #a0a2b7;
+            }
+          }
+
+          .accessCode {
+            text-align: center;
+            margin-bottom: 1em;
+
+            label {
+              margin-bottom: 0;
+            }
+
+            span {
+              font-size: 0.8em;
+            }
+          }
+        }
+
+        .msalbutton {
+          display: flex;
+          margin: 50px 0 50px 0;
+          border-radius: 10px;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}

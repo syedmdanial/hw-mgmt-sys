@@ -1,0 +1,338 @@
+.main-btn {
+  box-sizing: border-box;
+  background: $primary;
+  color: $primaryText;
+  font-size: $btnFontSize;
+  border: 1px solid $primary;
+  border-radius: $btnBorderRadius;
+  position: relative; /* For positioning the pseudo-element */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+  &:hover {
+    color: $primaryText;
+    border: 1px solid $primary;
+  }
+
+  &:before {
+    /* Position the pseudo-element. */
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    /* Hidden by default. */
+    opacity: 0;
+    transition: opacity 500ms;
+  }
+
+  &:hover::before {
+    /* Show the pseudo-element on hover. */
+    opacity: 1;
+  }
+}
+
+.inverse-btn {
+  box-sizing: border-box;
+  background: #fff;
+  color: $primary;
+  font-size: $btnFontSize;
+  border: 1px solid $primary;
+  border-radius: $btnBorderRadius;
+  position: relative; /* For positioning the pseudo-element */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+  &:hover {
+    color: $primary;
+    border: 1px solid $primary;
+  }
+
+  &:before {
+    /* Position the pseudo-element. */
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    /* Hidden by default. */
+    opacity: 0;
+    transition: opacity 500ms;
+  }
+
+  &:hover::before {
+    /* Show the pseudo-element on hover. */
+    opacity: 1;
+  }
+}
+
+.secondary-btn {
+  box-sizing: border-box;
+  background: #e2ecff;
+  color: $primary;
+  font-size: $btnFontSize;
+  border: 1px solid #e2ecff;
+  border-radius: $btnBorderRadius;
+  position: relative; /* For positioning the pseudo-element */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+  &:hover {
+    color: $primaryText;
+    background: #719df0;
+    border: 1px solid #719df0;
+  }
+
+  &:before {
+    /* Position the pseudo-element. */
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    /* Hidden by default. */
+    opacity: 0;
+    transition: opacity 500ms;
+  }
+
+  &:hover::before {
+    /* Show the pseudo-element on hover. */
+    opacity: 1;
+  }
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.inverse-btn-secondary {
+  background: white;
+  color: $primary;
+  font-size: $btnFontSize;
+  border: 1px solid $primary;
+  border-radius: $btnBorderRadius;
+
+  &:hover {
+    background: $primary;
+    color: white;
+    border: 1px solid $primary;
+  }
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+// Custom Buttons
+.main_btn--primary {
+  box-sizing: border-box;
+  background: $primary;
+  color: white;
+  font-size: $btnFontSize;
+  border: 1px solid $primary;
+  border-radius: $btnBorderRadius;
+  position: relative; /* For positioning the pseudo-element */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+  &:hover {
+    color: #fff;
+    border: 1px solid $primary;
+  }
+
+  &:before {
+    /* Position the pseudo-element. */
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    /* Hidden by default. */
+    opacity: 0;
+    transition: opacity 500ms;
+  }
+
+  &:hover::before {
+    /* Show the pseudo-element on hover. */
+    opacity: 1;
+  }
+}
+
+.main_btn--secondary {
+  box-sizing: border-box;
+  background: $secondary;
+  color: white;
+  font-size: $btnFontSize;
+  border: 1px solid $secondary;
+  border-radius: $btnBorderRadius;
+  position: relative; /* For positioning the pseudo-element */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+  &:hover {
+    // background: white;
+    color: #fff;
+    border: 1px solid $secondary;
+  }
+
+  &:before {
+    /* Position the pseudo-element. */
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    /* Hidden by default. */
+    opacity: 0;
+    transition: opacity 500ms;
+  }
+
+  &:hover::before {
+    /* Show the pseudo-element on hover. */
+    opacity: 1;
+  }
+}
+
+.inverse_btn--primary {
+  box-sizing: border-box;
+  background: #fff;
+  color: $primary;
+  font-size: $btnFontSize;
+  border: 1px solid $primary;
+  border-radius: $btnBorderRadius;
+  position: relative; /* For positioning the pseudo-element */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+  &:hover {
+    color: $primary;
+    border: 1px solid $primary;
+  }
+
+  &:before {
+    /* Position the pseudo-element. */
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    /* Hidden by default. */
+    opacity: 0;
+    transition: opacity 500ms;
+  }
+
+  &:hover::before {
+    /* Show the pseudo-element on hover. */
+    opacity: 1;
+  }
+}
+
+.inverse_btn--secondary {
+  box-sizing: border-box;
+  background: #fff;
+  color: $secondary;
+  font-size: $btnFontSize;
+  border: 1px solid $secondary;
+  border-radius: $btnBorderRadius;
+  position: relative; /* For positioning the pseudo-element */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+
+  &:hover:not([disabled]) {
+    // background: white;
+    color: #fff;
+    border: 1px solid $secondary;
+    background: $secondary;
+  }
+
+  &:before {
+    /* Position the pseudo-element. */
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    /* Hidden by default. */
+    opacity: 0;
+    transition: opacity 500ms;
+  }
+
+  &:hover::before {
+    /* Show the pseudo-element on hover. */
+    opacity: 1;
+  }
+}
+
+.inverse_btn--secondary.active {
+  color: #fff;
+  border: 1px solid #143a62;
+  background: #143a62;
+}
+
+//link btn
+.link-btn--primary {
+  box-sizing: border-box;
+  background: $secondary;
+  color: white;
+  font-size: $btnFontSize;
+  border: 1px solid #fff;
+  border-radius: $btnBorderRadius;
+  position: relative; /* For positioning the pseudo-element */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  &:hover {
+    // background: white;
+    color: #fff;
+    border: 1px solid #fff;
+  }
+  &:before {
+    /* Position the pseudo-element. */
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    /* Hidden by default. */
+    opacity: 0;
+    transition: opacity 500ms;
+  }
+
+  &:hover::before {
+    /* Show the pseudo-element on hover. */
+    opacity: 1;
+  }
+}
+
+// Min width buttons
+.revertBtn {
+  min-width: 120px;
+}
+
+.custonDisabled {
+  pointer-events: none !important;
+  opacity: 0.65;
+}
+
+.proceedBtn {
+  min-width: 120px;
+}

@@ -1,0 +1,68 @@
+// Extra small devices (portrait phones, less than 576px)
+@mixin xs {
+  @media (max-width: #{$screen-xs}) {
+    @content;
+  }
+}
+
+//small devices (portrait phones, less than 576px)
+@mixin sm {
+  @media (min-width: #{$screen-xs}) and (max-width: #{$screen-sm}) {
+    @content;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@mixin md {
+  @media (min-width: #{$screen-sm}) and (max-width: #{$screen-md}) {
+    @content;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@mixin lg {
+  @media (min-width: #{$screen-md}) and (max-width: #{$screen-lg}) {
+    @content;
+  }
+}
+
+// small devices (portrait phones, less than 576px)
+// @mixin sm {
+//   @media (max-width: #{$screen-sm-max}) {
+//     @content;
+//   }
+// }
+
+// // Medium devices
+// @mixin md {
+//   @media (max-width: #{$screen-md-max}) {
+//     @content;
+//   }
+// }
+
+// // Large devices
+// @mixin lg {
+//   @media (max-width: #{$screen-lg-max}) {
+//     @content;
+//   }
+// }
+
+//     https://medium.com/codeartisan/breakpoints-and-media-queries-in-scss-46e8f551e2f2
+//     Sometimes we also need to define some styles beyond
+//     the rigidly defined breakpoints. Let’s add one more
+//     mixin – I called it “rwd”:
+//     As a parameter $screen we can put any screen size.
+
+// Custom devices
+@mixin lessThan($screen) {
+  @media (max-width: $screen) {
+    @content;
+  }
+}
+
+// Custom devices
+@mixin greaterThan($screen) {
+  @media (min-width: $screen) {
+    @content;
+  }
+}

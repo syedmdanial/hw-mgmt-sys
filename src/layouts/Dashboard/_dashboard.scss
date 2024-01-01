@@ -1,0 +1,90 @@
+.Dashboard-wrapper {
+  .dashboard-container {
+    padding: 1.8rem 2.2rem 0;
+
+    .Dashboard {
+      .card-body {
+        min-height: 16.7em;
+      }
+
+      #cost-spend-card {
+        min-height: unset;
+      }
+
+      h4 {
+        color: $headingTextColor;
+        font-size: 1.2rem;
+        font-weight: normal;
+        letter-spacing: 0.05rem;
+        margin-bottom: 1.2rem;
+        text-transform: capitalize;
+        margin: 0;
+      }
+
+      h6 {
+        color: #727e8c;
+      }
+
+      .total-wrapper {
+        display: flex;
+        align-items: center;
+
+        .avatar {
+          .avatar-content {
+            display: flex;
+            background-color: rgba(90, 141, 238, 0.2);
+            padding: 0.5em;
+            border-radius: 100px;
+
+            i {
+              margin-right: auto;
+            }
+          }
+        }
+      }
+    }
+
+    .card {
+      margin-bottom: 2.2rem;
+      box-shadow: -8px 12px 18px 0 rgba(0, 0, 0, 0.13);
+      transition: all 0.3s ease-in-out;
+      border-radius: 8px;
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        background: none;
+        border-bottom: 1px solid $borderColor;
+
+        i {
+          font-size: 1.5rem;
+          color: $headingTextColor;
+        }
+
+        h4 {
+          color: $headingTextColor;
+          font-size: 1.2rem;
+          font-weight: normal;
+          letter-spacing: 0.05rem;
+          margin-bottom: 1.2rem;
+          text-transform: capitalize;
+          margin: 0;
+          margin-left: 10px;
+        }
+      }
+
+      .card-body {
+        label {
+          color: $headingTextColor;
+          font-size: 0.8rem;
+          text-transform: capitalize;
+          font-weight: 500;
+        }
+
+        i {
+          margin-right: 0.5em;
+        }
+      }
+    }
+  }
+}
