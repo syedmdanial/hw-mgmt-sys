@@ -1,12 +1,16 @@
-import React from 'react';
+import React from "react";
 // import { NavLink } from 'react-router-dom';
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown } from "react-bootstrap";
 
 // const baseUrl = process.env.PUBLIC_URL;
 
 const Topbar = (props) => (
   <div className="Topbar">
-    <div className="leftSide">left</div>
+    <div className="leftSide">
+      <div className="logo">
+        <img alt="logo" src={require("../../../assets/topbar/b2school.jpg")} />
+      </div>
+    </div>
     <div className="middle">
       <h2>Homework Management System</h2>
     </div>
@@ -19,17 +23,10 @@ const Topbar = (props) => (
       >
         <Dropdown.Toggle as="div">
           <div className="user-profile">
-            <div
-              className={
-                'userProfileImg ' +
-                // (this.props.user.profile_picture_url ? '' : 'd-none')
-                (false ? '' : 'd-none')
-              }
-            >
+            <div className="userProfileImg">
               <img
-                // src={this.props.user.profile_picture_url}
-                src={require('../../../assets/topbar/cyclist.jpg').default}
                 alt="Avatar"
+                src={require("../../../assets/topbar/cyclist.jpg")}
               />
             </div>
           </div>

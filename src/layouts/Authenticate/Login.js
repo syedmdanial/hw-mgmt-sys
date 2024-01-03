@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Lottie from 'lottie-react';
-import { Form } from 'react-bootstrap';
-import { historyPush } from '../../routes/historyPush';
-import { setLoadingStatus } from '../../store/actions/authAction';
-import Loading from '../../components/shared/Loading/Loading';
-import HOC from '../../components/shared/HOC';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import Lottie from "lottie-react";
+import { Form } from "react-bootstrap";
+import { historyPush } from "../../routes/historyPush";
+import { setLoadingStatus } from "../../store/actions/authAction";
+import Loading from "../../components/shared/Loading/Loading";
+import HOC from "../../components/shared/HOC";
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      username: "",
+      password: "",
       isLoading: false,
 
       /* Error Handling */
-      emailError: false,
+      usernameError: false,
       passwordError: false,
     };
 
@@ -24,9 +24,9 @@ class Login extends Component {
   }
 
   componentDidMount() {
-    if (this.props.location.search === '') {
+    if (this.props.location.search === "") {
       if (this.props.auth.isLoggedIn) {
-        historyPush('/dashboard');
+        historyPush("/dashboard");
       } else {
         this.props.setLoadingStatus(false);
       }
@@ -45,13 +45,13 @@ class Login extends Component {
     const id = e.target.id;
     const { value } = e.target;
 
-    if (id === 'email') {
-      this.setState({ email: value });
+    if (id === "username") {
+      this.setState({ username: value });
 
-      if (this.state.emailError) {
-        this.setState({ emailError: false });
+      if (this.state.usernameError) {
+        this.setState({ usernameError: false });
       }
-    } else if (id === 'password') {
+    } else if (id === "password") {
       this.setState({ password: value });
 
       if (this.state.passwordError) {
@@ -61,7 +61,7 @@ class Login extends Component {
   }
 
   render() {
-    const { email, password, emailError, passwordError, isLoading } =
+    const { username, password, usernameError, passwordError, isLoading } =
       this.state;
 
     return (
@@ -71,23 +71,7 @@ class Login extends Component {
             <div className="col-lg-6 leftContainer d-flex flex-column">
               <div className="formContainer container">
                 <div className="row text-center">
-                  <div className="col-12">
-                    <div className="logo-container">
-                      <img
-                        src={require('../../assets/auth/tt-5g.png').default}
-                        alt="login-logo"
-                        className="login-logo"
-                      />
-                      <img
-                        src={
-                          require('../../assets/auth/tt-gobeyond.png').default
-                        }
-                        alt="go-beyond"
-                        className="go-beyond"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-12">
+                  <div className="col-12 pt-5 mt-5">
                     <h4>Homework Management System</h4>
                   </div>
                 </div>
@@ -95,24 +79,24 @@ class Login extends Component {
                   <div className="row">
                     <div className="col-12">
                       <div className="text-divider">
-                        <small>login with registered email</small>
+                        <small>login with registered account</small>
                       </div>
                     </div>
                     <div className="col-12">
                       <Form>
                         <div className="row">
                           <div className="col-12">
-                            <Form.Group controlId="email">
-                              <Form.Label>Email address</Form.Label>
+                            <Form.Group controlId="username">
+                              <Form.Label>Username</Form.Label>
                               <Form.Control
                                 type="text"
-                                placeholder="Enter your email"
-                                value={email}
-                                className={emailError ? 'is-invalid' : ''}
+                                placeholder="Enter your username"
+                                value={username}
+                                className={usernameError ? "is-invalid" : ""}
                                 onChange={(e) => this.handleUserInput(e)}
                               />
-                              {emailError && (
-                                <Form.Text>Email is required</Form.Text>
+                              {usernameError && (
+                                <Form.Text>Username is required</Form.Text>
                               )}
                             </Form.Group>
                           </div>
@@ -126,7 +110,7 @@ class Login extends Component {
                                   type="password"
                                   placeholder="Enter your password"
                                   value={password}
-                                  className={passwordError ? 'is-invalid' : ''}
+                                  className={passwordError ? "is-invalid" : ""}
                                   onChange={(e) => this.handleUserInput(e)}
                                 />
                                 {passwordError && (
@@ -139,7 +123,7 @@ class Login extends Component {
                         <div className="row">
                           <div className="col-12">
                             <button
-                              className="btn main-btn w-100"
+                              className="btn main-btn w-100 mt-5"
                               type="submit"
                               disabled={isLoading || this.props.auth.isLoading}
                             >
@@ -155,7 +139,7 @@ class Login extends Component {
             </div>
             <div className="col-lg-6 rightContainer">
               <Lottie
-                animationData={require('../../assets/auth/login-bg.json')}
+                animationData={require("../../assets/auth/login-bg.json")}
               />
             </div>
           </div>

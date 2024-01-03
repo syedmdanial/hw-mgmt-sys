@@ -51,6 +51,14 @@
         display: flex;
       }
     }
+
+    .logo {
+      img {
+        width: 85px;
+        height: auto;
+        object-fit: cover;
+      }
+    }
   }
 
   .middle {
@@ -160,7 +168,7 @@
 
         .userProfileImg {
           img {
-            width: 40px;
+            width: 55px;
             height: auto;
             border-radius: 100%;
             object-fit: cover;
