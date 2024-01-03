@@ -1,21 +1,18 @@
-import axios from 'axios';
-import config from '../configs/constant';
+import axios from "axios";
+import config from "../configs/constant";
 
 export const API_BASE_URL = config.urls.api_base_url;
 
-// Need to fix this
-// In case of network error
 const prepareResponse = (response) => {
   let err = false;
-  let error_message = '';
+  let error_message = "";
   if (response.data === undefined) {
-    error_message = 'Api Failed to fetch the data';
+    error_message = "Api Failed to fetch the data";
     err = true;
   }
 
-  // Need to check this with ALI
-  if (response.data && response.data.code !== 200) {
-    error_message = response.data.message;
+  if (response.data && response.status !== 200) {
+    error_message = response.statusText;
     err = true;
   }
 
@@ -24,19 +21,18 @@ const prepareResponse = (response) => {
       success: false,
       error: true,
       message: error_message,
-      status: response.data.status,
-      code: response.data.code,
-      data: response.data.data || {},
+      status: response.status,
+      code: response.status,
+      data: response.data || {},
     };
-    // eslint-disable-next-line no-else-return
   } else {
     const responseData = {
       success: true,
       error: false,
-      message: response.data.message,
-      status: response.data.status,
-      code: response.data.code,
-      data: response.data.data,
+      message: response.statusText,
+      status: response.status,
+      code: response.status,
+      data: response.data,
     };
 
     if (response.data.pagination) {
@@ -51,9 +47,9 @@ const prepareCatchResponse = (err) => {
   return {
     success: false,
     error: true,
-    message: err.message,
+    message: err.statusText,
     status: err.status,
-    code: err.code,
+    code: err.status,
     data: {},
   };
 };
@@ -122,7 +118,7 @@ export const postMultipartRequest = (url, data, token, next) => {
   const headers = {
     headers: {
       Authorization: `Bearer ${token}`,
-      'Content-Type': 'multipart/form-data',
+      "Content-Type": "multipart/form-data",
     },
   };
   axios
