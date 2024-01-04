@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Lottie from "lottie-react";
 import { Form } from "react-bootstrap";
 import { historyPush } from "../../routes/historyPush";
 import { setLoadingStatus } from "../../store/actions/authAction";
@@ -137,11 +136,7 @@ class Login extends Component {
                 </div>
               </div>
             </div>
-            <div className="col-lg-6 rightContainer">
-              <Lottie
-                animationData={require("../../assets/auth/login-bg.json")}
-              />
-            </div>
+            <div className="col-lg-6 rightContainer"></div>
           </div>
         </div>
       </div>

@@ -30,7 +30,12 @@ const HomeworkTable = (props) => {
             </Form.Group>
           </div>
           <div className="col-2">
-            <button className="btn main-btn float-right">Add Homework</button>
+            <button
+              className="btn main-btn float-right"
+              onClick={() => props.handleCloseAddHomeworkModal()}
+            >
+              Add Homework
+            </button>
           </div>
         </div>
       </div>
@@ -81,9 +86,27 @@ const HomeworkTable = (props) => {
                       Actions
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
-                      <Dropdown.Item as="span">View Students</Dropdown.Item>
-                      <Dropdown.Item as="span">Edit</Dropdown.Item>
-                      <Dropdown.Item as="span">Delete</Dropdown.Item>
+                      <Dropdown.Item
+                        as="span"
+                        id="view-students"
+                        onClick={(e) => props.handleAction(e, item.id)}
+                      >
+                        View Students
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        as="span"
+                        id="edit-homework"
+                        onClick={(e) => props.handleAction(e, item.id)}
+                      >
+                        Edit
+                      </Dropdown.Item>
+                      <Dropdown.Item
+                        as="span"
+                        id="delete-homework"
+                        onClick={(e) => props.handleAction(e, item.id)}
+                      >
+                        Delete
+                      </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
                 </td>

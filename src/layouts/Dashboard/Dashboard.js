@@ -9,6 +9,7 @@ import WrapperCard from "../../components/shared/Cards/WrapperCard";
 
 /* components */
 import HomeworkTable from "../../components/Dasboard/HomeworkTable";
+import AddHomeworkModal from "../../components/Dasboard/AddHomeworkModal";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -16,7 +17,11 @@ class Dashboard extends Component {
     this.state = {
       isLoading: false,
       homework: [],
+      showAddHomeworkModal: false,
     };
+
+    this.handleCloseAddHomeworkModal =
+      this.handleCloseAddHomeworkModal.bind(this);
   }
 
   componentDidMount() {
@@ -41,8 +46,18 @@ class Dashboard extends Component {
     });
   }
 
-  deleteHomework(id) {
-    console.log("delete homework", id);
+  handleAction(e, id) {
+    console.log("action ", e.target.id, id);
+  }
+
+  handleCloseAddHomeworkModal() {
+    this.setState((prevState) => ({
+      showAddHomeworkModal: !prevState.showAddHomeworkModal,
+    }));
+  }
+
+  handleSaveAddHomework() {
+    console.log("save homework");
   }
 
   render() {
@@ -60,13 +75,22 @@ class Dashboard extends Component {
                 <Form.Group>
                   <HomeworkTable
                     data={{ isLoading, homework }}
-                    deleteHomework={() => this.deleteHomework()}
+                    handleAction={(e, id) => this.handleAction(e, id)}
+                    handleCloseAddHomeworkModal={
+                      this.handleCloseAddHomeworkModal
+                    }
                   />
                 </Form.Group>
               </Card.Body>
             </WrapperCard>
           </div>
         </div>
+        <AddHomeworkModal
+          isLoading={isLoading}
+          showAddHomeworkModal={this.state.showAddHomeworkModal}
+          handleCloseAddHomeworkModal={this.handleCloseAddHomeworkModal}
+          handleSaveAddHomework={this.handleSaveAddHomework}
+        />
       </div>
     );
   }
