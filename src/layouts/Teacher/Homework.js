@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { getRequest } from "../../helpers/apiHandlers";
 
 /* components */
-import HomeworkTable from "../../components/Dasboard/HomeworkTable";
-import AddHomeworkModal from "../../components/Dasboard/AddHomeworkModal";
-import EditHomeworkModal from "../../components/Dasboard/EditHomeworkModal";
+import HomeworkTable from "../../components/Teacher/HomeworkTable";
+import AddHomeworkModal from "../../components/Teacher/AddHomeworkModal";
+import EditHomeworkModal from "../../components/Teacher/EditHomeworkModal";
 
 class Homework extends Component {
   constructor(props) {
