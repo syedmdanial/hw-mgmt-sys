@@ -6,8 +6,11 @@ import { Container, Row, Col, Form } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import Select from "react-select";
 import { useDropzone } from "react-dropzone";
+import config from "../../configs/constant";
 
-const AddHomeworkModal = (props) => {
+const EditHomeworkModal = (props) => {
+  const { homeworkData } = props;
+  console.log(homeworkData);
   const [fileName, setFileName] = useState(
     "Drag 'n' drop some files here, or click to select files"
   );
@@ -19,17 +22,19 @@ const AddHomeworkModal = (props) => {
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
+  const _dueDate = new Date(homeworkData.dueDate);
+
   return (
     <WrapperModal
-      show={props.showAddHomeworkModal}
-      onClose={props.handleCloseAddHomeworkModal}
+      show={props.showEditHomeworkModal}
+      onClose={props.handleCloseEditHomeworkModal}
       header={{
         exist: true,
         component: (
           <TitleOnlyHeader
             data={{
-              title: "Add Homework",
-              handleCloseModal: props.handleCloseAddHomeworkModal,
+              title: "Edit Homework",
+              handleCloseModal: props.handleCloseEditHomeworkModal,
             }}
           />
         ),
@@ -40,7 +45,7 @@ const AddHomeworkModal = (props) => {
           <CloseAndActionFooter
             data={{
               actionTitle: "Save",
-              handleCloseModal: props.handleCloseAddHomeworkModal,
+              handleCloseModal: props.handleCloseEditHomeworkModal,
               handleActionButton: props.handleSaveAddHomework,
               isLoading: props.isLoading,
             }}
@@ -54,7 +59,11 @@ const AddHomeworkModal = (props) => {
           <Col>
             <Form.Group controlId="formBasicTitle">
               <Form.Label>Title</Form.Label>
-              <Form.Control type="text" placeholder="Enter your title" />
+              <Form.Control
+                type="text"
+                placeholder="Enter your title"
+                value={homeworkData?.title}
+              />
             </Form.Group>
           </Col>
         </Row>
@@ -63,11 +72,8 @@ const AddHomeworkModal = (props) => {
             <Form.Group controlId="formBasicSubject">
               <Form.Label>Subject</Form.Label>
               <Select
-                options={[
-                  { value: "subject1", label: "Subject 1" },
-                  { value: "subject2", label: "Subject 2" },
-                  { value: "subject3", label: "Subject 3" },
-                ]}
+                options={config.subjects}
+                defaultValue={homeworkData?.subject}
               />
             </Form.Group>
           </Col>
@@ -87,10 +93,7 @@ const AddHomeworkModal = (props) => {
           <Col>
             <Form.Group controlId="formBasicDueDate">
               <Form.Label>Due Date</Form.Label>
-              <DatePicker
-                selected={props.startDate}
-                onChange={props.handleChange}
-              />
+              <DatePicker selected={_dueDate} onChange={props.handleChange} />
             </Form.Group>
           </Col>
         </Row>
@@ -99,4 +102,4 @@ const AddHomeworkModal = (props) => {
   );
 };
 
-export default AddHomeworkModal;
+export default EditHomeworkModal;

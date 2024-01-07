@@ -73,7 +73,7 @@ const HomeworkTable = (props) => {
             homework.map((item) => (
               <tr key={item.id}>
                 <td>{item.title}</td>
-                <td>{item.subject}</td>
+                <td>{item.subject.label}</td>
                 <td>{item.dueDate}</td>
                 <td>{item.noOfSubmissions}</td>
                 <td>
@@ -89,21 +89,21 @@ const HomeworkTable = (props) => {
                       <Dropdown.Item
                         as="span"
                         id="view-students"
-                        onClick={(e) => props.handleAction(e, item.id)}
+                        onClick={(e) => props.handleAction(e, item)}
                       >
                         View Students
                       </Dropdown.Item>
                       <Dropdown.Item
                         as="span"
                         id="edit-homework"
-                        onClick={(e) => props.handleAction(e, item.id)}
+                        onClick={(e) => props.handleAction(e, item)}
                       >
                         Edit
                       </Dropdown.Item>
                       <Dropdown.Item
                         as="span"
                         id="delete-homework"
-                        onClick={(e) => props.handleAction(e, item.id)}
+                        onClick={(e) => props.handleAction(e, item)}
                       >
                         Delete
                       </Dropdown.Item>

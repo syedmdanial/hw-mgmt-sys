@@ -22,6 +22,15 @@ const development = {
   persistConfig: {
     key: "HW-MGMT-SYS-STAG",
   },
+
+  subjects: [
+    { label: "Math", value: "math" },
+    { label: "English", value: "english" },
+    { label: "Science", value: "science" },
+    { label: "History", value: "history" },
+    { label: "Art", value: "art" },
+    { label: "Geography", value: "geography" },
+  ],
 };
 
 const config =

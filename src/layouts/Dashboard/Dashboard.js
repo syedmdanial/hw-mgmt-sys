@@ -1,67 +1,20 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Card, Form } from "react-bootstrap";
-import { getRequest } from "../../helpers/apiHandlers";
+import { Card } from "react-bootstrap";
 
 /* common */
 import WrapperCard from "../../components/shared/Cards/WrapperCard";
-// import Loading from '../../components/shared/Loading/Loading';
 
-/* components */
-import HomeworkTable from "../../components/Dasboard/HomeworkTable";
-import AddHomeworkModal from "../../components/Dasboard/AddHomeworkModal";
+/* layout */
+import Homework from "../Teacher/Homework";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isLoading: false,
-      homework: [],
-      showAddHomeworkModal: false,
-    };
-
-    this.handleCloseAddHomeworkModal =
-      this.handleCloseAddHomeworkModal.bind(this);
-  }
-
-  componentDidMount() {
-    this.getData();
-  }
-
-  getData() {
-    this.setState({ isLoading: true }, () => {
-      getRequest("/homeworkData", {}, (res) => {
-        if (res.success) {
-          this.setState({
-            isLoading: false,
-            homework: res.data,
-          });
-        } else {
-          this.setState({
-            isLoading: false,
-            homework: [],
-          });
-        }
-      });
-    });
-  }
-
-  handleAction(e, id) {
-    console.log("action ", e.target.id, id);
-  }
-
-  handleCloseAddHomeworkModal() {
-    this.setState((prevState) => ({
-      showAddHomeworkModal: !prevState.showAddHomeworkModal,
-    }));
-  }
-
-  handleSaveAddHomework() {
-    console.log("save homework");
+    this.state = {};
   }
 
   render() {
-    const { isLoading, homework } = this.state;
     return (
       <div className="Dashboard">
         <div className="row">
@@ -72,25 +25,11 @@ class Dashboard extends Component {
               }}
             >
               <Card.Body>
-                <Form.Group>
-                  <HomeworkTable
-                    data={{ isLoading, homework }}
-                    handleAction={(e, id) => this.handleAction(e, id)}
-                    handleCloseAddHomeworkModal={
-                      this.handleCloseAddHomeworkModal
-                    }
-                  />
-                </Form.Group>
+                <Homework />
               </Card.Body>
             </WrapperCard>
           </div>
         </div>
-        <AddHomeworkModal
-          isLoading={isLoading}
-          showAddHomeworkModal={this.state.showAddHomeworkModal}
-          handleCloseAddHomeworkModal={this.handleCloseAddHomeworkModal}
-          handleSaveAddHomework={this.handleSaveAddHomework}
-        />
       </div>
     );
   }
