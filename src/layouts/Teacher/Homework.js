@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { getRequest } from "../../helpers/apiHandlers";
+import { historyPush } from "../../routes/historyPush";
 
 /* components */
 import HomeworkTable from "../../components/Teacher/HomeworkTable";
@@ -52,6 +53,10 @@ class Homework extends Component {
 
     if (id === "edit-homework") {
       this.handleCloseEditHomeworkModal(item);
+    } else if (id === "view-students") {
+      historyPush(
+        `/homework/${item.title.toLowerCase().replace(/ /g, "-")}/students`
+      );
     }
   }
 

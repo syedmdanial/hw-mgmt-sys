@@ -25,7 +25,7 @@ class Login extends Component {
   componentDidMount() {
     if (this.props.location.search === "") {
       if (this.props.auth.isLoggedIn) {
-        historyPush("/dashboard");
+        historyPush("/homework");
       } else {
         this.props.setLoadingStatus(false);
       }

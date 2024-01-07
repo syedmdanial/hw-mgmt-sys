@@ -1,3 +1,7 @@
+/* module utilities */
+@import "react-toastify/dist/ReactToastify.min.css";
+@import "react-datepicker/dist/react-datepicker.css";
+
 @import "./variables";
 @import "./breakpoints";
 @import "./mixins";
@@ -6,7 +10,6 @@
 @import "./modal";
 @import "./checkbox";
 @import "./pagination";
-@import "react-datepicker/dist/react-datepicker.css";
 @import "./datepicker";
 @import "./dragndrop";
 
