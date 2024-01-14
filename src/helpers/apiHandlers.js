@@ -6,13 +6,13 @@ export const API_BASE_URL = config.urls.api_base_url;
 const prepareResponse = (response) => {
   let err = false;
   let error_message = "";
-  if (response.data === undefined) {
+  if (response.data.data === undefined) {
     error_message = "Api Failed to fetch the data";
     err = true;
   }
 
   if (response.data && response.status !== 200) {
-    error_message = response.statusText;
+    error_message = response.data.statusText;
     err = true;
   }
 
@@ -21,18 +21,18 @@ const prepareResponse = (response) => {
       success: false,
       error: true,
       message: error_message,
-      status: response.status,
-      code: response.status,
-      data: response.data || {},
+      status: response.data.status,
+      code: response.data.status,
+      data: response.data.data || {},
     };
   } else {
     const responseData = {
       success: true,
       error: false,
-      message: response.statusText,
-      status: response.status,
-      code: response.status,
-      data: response.data,
+      message: response.data.statusText,
+      status: response.data.status,
+      code: response.data.status,
+      data: response.data.data,
     };
 
     if (response.data.pagination) {
@@ -47,9 +47,9 @@ const prepareCatchResponse = (err) => {
   return {
     success: false,
     error: true,
-    message: err.statusText,
-    status: err.status,
-    code: err.status,
+    message: err.response.data.statusText,
+    status: err.response.data.status,
+    code: err.response.data.status,
     data: {},
   };
 };

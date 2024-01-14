@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getRequest } from "../../helpers/apiHandlers";
 import { historyPush } from "../../routes/historyPush";
-import { getSubjectList } from "../../store/actions/homeworkAction";
+import {
+  getSubjectList,
+  addHomework,
+} from "../../store/actions/homeworkAction";
 import { dataModeling } from "../../helpers/helperFunction";
 
 /* components */
@@ -27,6 +30,7 @@ class Homework extends Component {
     this.handleCloseEditHomeworkModal =
       this.handleCloseEditHomeworkModal.bind(this);
     this.getSubjectOptions = this.getSubjectOptions.bind(this);
+    this.handleSaveAddHomework = this.handleSaveAddHomework.bind(this);
   }
 
   componentDidMount() {
@@ -55,9 +59,7 @@ class Homework extends Component {
   async getSubjectOptions() {
     try {
       const subjectOptions = await this.props.getSubjectList();
-      // console.log(dataModeling(subjectOptions, "subject"));
       let _options = dataModeling(subjectOptions, "subject");
-      // console.log(subjectOptions);
       this.setState({ subjectOptions: _options });
     } catch (err) {
       console.log(err);
@@ -99,8 +101,10 @@ class Homework extends Component {
     }
   }
 
-  handleSaveAddHomework() {
+  handleSaveAddHomework(data) {
     console.log("[Add] save homework");
+    data.user = this.props.user;
+    this.props.addHomework(data);
   }
 
   handleSaveEditHomework() {
@@ -142,15 +146,15 @@ class Homework extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { user, token } = state.auth;
+  const { user } = state.auth;
   return {
     user,
-    token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   getSubjectList: () => dispatch(getSubjectList()),
+  addHomework: (data) => dispatch(addHomework(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homework);

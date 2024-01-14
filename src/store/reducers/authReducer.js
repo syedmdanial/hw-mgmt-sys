@@ -16,7 +16,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoggedIn: true,
-        user: action.payload.user,
+        user: action.payload,
       };
     case UPDATE_LOADING_STATUS:
       return {

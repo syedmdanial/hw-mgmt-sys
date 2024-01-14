@@ -16,7 +16,7 @@ export const setLoginSuccess = (res) => ({
 
 // Login
 export const loginUser = (loginData) => (dispatch) => {
-  console.log(loginData);
+  // console.log(loginData);
   const data = {
     email: loginData.email,
     password: loginData.password,
@@ -27,20 +27,20 @@ export const loginUser = (loginData) => (dispatch) => {
   postRequest("/login", data, {}, (res) => {
     dispatch(setLoadingStatus(false));
 
-    console.log(res);
+    // console.log(res);
     if (res.success) {
       dispatch(setLoginSuccess(res.data));
+      toast.success(res.message);
       historyPush("/homework");
-      toast.success("Logged in successfully");
     } else {
-      toast.success("Logged in failed");
+      toast.error(res.message);
     }
   });
 };
 
 // Register
 export const registerUser = (registerData) => (dispatch) => {
-  console.log(registerData);
+  // console.log(registerData);
   const data = {
     email: registerData.email,
     name: registerData.name,
@@ -53,12 +53,12 @@ export const registerUser = (registerData) => (dispatch) => {
   postRequest("/register", data, {}, (res) => {
     dispatch(setLoadingStatus(false));
 
-    console.log(res);
+    // console.log(res);
     if (res.success) {
-      toast.success("User created successfully");
       historyPush("/login");
+      toast.success(res.message);
     } else {
-      toast.error("Cannot register user");
+      toast.error(res.message);
     }
   });
 };

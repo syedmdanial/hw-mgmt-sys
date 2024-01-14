@@ -29,7 +29,7 @@ export const dataModeling = (data, key) => {
       let _label = _value.charAt(0).toUpperCase() + _value.slice(1);
 
       return tempData.push({
-        id: item.id,
+        id: item._id,
         label: _label,
         value: _value,
       });
