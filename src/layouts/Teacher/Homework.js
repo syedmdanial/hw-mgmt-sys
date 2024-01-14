@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { getRequest } from "../../helpers/apiHandlers";
 import { historyPush } from "../../routes/historyPush";
+import { getSubjectList } from "../../store/actions/homeworkAction";
+import { dataModeling } from "../../helpers/helperFunction";
 
 /* components */
 import HomeworkTable from "../../components/Teacher/HomeworkTable";
@@ -14,6 +17,7 @@ class Homework extends Component {
       isLoading: false,
       homework: [],
       homeworkData: null,
+      subjectOptions: [],
       showAddHomeworkModal: false,
       showEditHomeworkModal: false,
     };
@@ -22,10 +26,12 @@ class Homework extends Component {
       this.handleCloseAddHomeworkModal.bind(this);
     this.handleCloseEditHomeworkModal =
       this.handleCloseEditHomeworkModal.bind(this);
+    this.getSubjectOptions = this.getSubjectOptions.bind(this);
   }
 
   componentDidMount() {
     this.getData();
+    this.getSubjectOptions();
   }
 
   getData() {
@@ -44,6 +50,19 @@ class Homework extends Component {
         }
       });
     });
+  }
+
+  async getSubjectOptions() {
+    try {
+      const subjectOptions = await this.props.getSubjectList();
+      // console.log(dataModeling(subjectOptions, "subject"));
+      let _options = dataModeling(subjectOptions, "subject");
+      // console.log(subjectOptions);
+      this.setState({ subjectOptions: _options });
+    } catch (err) {
+      console.log(err);
+      this.setState({ subjectOptions: [] });
+    }
   }
 
   handleAction(e, item) {
@@ -89,7 +108,7 @@ class Homework extends Component {
   }
 
   render() {
-    const { isLoading, homework } = this.state;
+    const { isLoading, homework, subjectOptions } = this.state;
 
     return (
       <div className="homework">
@@ -104,6 +123,7 @@ class Homework extends Component {
             showAddHomeworkModal={this.state.showAddHomeworkModal}
             handleCloseAddHomeworkModal={this.handleCloseAddHomeworkModal}
             handleSaveAddHomework={this.handleSaveAddHomework}
+            options={subjectOptions}
           />
         )}
         {this.state.showEditHomeworkModal && (
@@ -113,6 +133,7 @@ class Homework extends Component {
             showEditHomeworkModal={this.state.showEditHomeworkModal}
             handleCloseEditHomeworkModal={this.handleCloseEditHomeworkModal}
             handleSaveEditHomework={this.handleSaveEditHomework}
+            options={subjectOptions}
           />
         )}
       </div>
@@ -120,4 +141,16 @@ class Homework extends Component {
   }
 }
 
-export default Homework;
+const mapStateToProps = (state) => {
+  const { user, token } = state.auth;
+  return {
+    user,
+    token,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  getSubjectList: () => dispatch(getSubjectList()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Homework);

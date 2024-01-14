@@ -9,6 +9,7 @@ import DashboardRoutes from "./DashboardRoutes";
 
 /* Layouts */
 import Login from "../layouts/Authenticate/Login";
+import Register from "../layouts/Authenticate/Register";
 
 const baseUrl = process.env.PUBLIC_URL;
 
@@ -18,6 +19,11 @@ const Routes = () => {
       <Switch>
         <Route exact path={`${baseUrl}/`} component={withRouter(Login)} />
         <Route exact path={`${baseUrl}/login`} component={withRouter(Login)} />
+        <Route
+          exact
+          path={`${baseUrl}/register`}
+          component={withRouter(Register)}
+        />
         <PrivateRoute
           path={`${baseUrl}/homework`}
           component={withRouter(DashboardRoutes)}

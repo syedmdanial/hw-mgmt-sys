@@ -1,11 +1,7 @@
-import { historyPush } from '../../routes/historyPush';
-// import cogoToast from 'cogo-toast';
-// import {
-//   postRequestWithoutAccessToken,
-//   putRequest,
-//   getRequest,
-// } from '../../helpers/apiHandlers';
-import { LOGIN_SUCCESS, LOGOUT, UPDATE_LOADING_STATUS } from '../actionTypes';
+import { toast } from "react-toastify";
+import { historyPush } from "../../routes/historyPush";
+import { postRequest } from "../../helpers/apiHandlers";
+import { LOGIN_SUCCESS, LOGOUT, UPDATE_LOADING_STATUS } from "../actionTypes";
 // import { store } from '../store';
 
 export const setLoadingStatus = (isLoading) => ({
@@ -18,35 +14,53 @@ export const setLoginSuccess = (res) => ({
   payload: res,
 });
 
-// Login Using SSO
-export const login = (loginData) => (dispatch) => {
+// Login
+export const loginUser = (loginData) => (dispatch) => {
   console.log(loginData);
-  // const data = {
+  const data = {
+    email: loginData.email,
+    password: loginData.password,
+  };
 
-  // };
+  dispatch(setLoadingStatus(true));
 
-  // let resMsg = 'Login Successfully';
+  postRequest("/login", data, {}, (res) => {
+    dispatch(setLoadingStatus(false));
 
-  // dispatch(setLoadingStatus(true));
+    console.log(res);
+    if (res.success) {
+      dispatch(setLoginSuccess(res.data));
+      historyPush("/homework");
+      toast.success("Logged in successfully");
+    } else {
+      toast.success("Logged in failed");
+    }
+  });
+};
 
-  // postRequestWithoutAccessToken('/login/sso', data, (res) => {
-  //   dispatch(setLoadingStatus(false));
-  //   if (res.success) {
-  //     dispatch(setLoginSuccess(res.data));
-  //     dispatch(setStaySignIn(data.staySignIn));
+// Register
+export const registerUser = (registerData) => (dispatch) => {
+  console.log(registerData);
+  const data = {
+    email: registerData.email,
+    name: registerData.name,
+    password: registerData.password,
+    user_type: registerData.user_type,
+  };
 
-  //     if (res.code !== 200) {
-  //       resMsg = res.message;
-  //     }
+  dispatch(setLoadingStatus(true));
 
-  //     cogoToast.success(resMsg, { position: 'top-right' });
-  //     historyPush('/dashboard');
-  //   } else {
-  //     if (res.message !== 'Account Suspended') {
-  //       cogoToast.error(res.message, { position: 'top-right' });
-  //     }
-  //   }
-  // });
+  postRequest("/register", data, {}, (res) => {
+    dispatch(setLoadingStatus(false));
+
+    console.log(res);
+    if (res.success) {
+      toast.success("User created successfully");
+      historyPush("/login");
+    } else {
+      toast.error("Cannot register user");
+    }
+  });
 };
 
 export const logoutUser = () => ({
@@ -63,5 +77,5 @@ export const onLogout = () => (dispatch) => {
   //   session.clear();
   // }
   dispatch(logoutUser());
-  historyPush('/login');
+  historyPush("/login");
 };

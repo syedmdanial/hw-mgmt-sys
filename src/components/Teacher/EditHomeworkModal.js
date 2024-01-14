@@ -72,7 +72,7 @@ const EditHomeworkModal = (props) => {
             <Form.Group controlId="formBasicSubject">
               <Form.Label>Subject</Form.Label>
               <Select
-                options={config.subjects}
+                options={props.options}
                 defaultValue={homeworkData?.subject}
               />
             </Form.Group>

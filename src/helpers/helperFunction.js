@@ -19,3 +19,24 @@ export const formatAmount = (amount) => {
     return `- MYR ${fAmount * -1}`;
   }
 };
+
+export const dataModeling = (data, key) => {
+  console.log(data, key);
+  let tempData = [];
+  if (data.length > 0) {
+    data.map((item) => {
+      let _value = item[key];
+      let _label = _value.charAt(0).toUpperCase() + _value.slice(1);
+
+      return tempData.push({
+        id: item.id,
+        label: _label,
+        value: _value,
+      });
+    });
+
+    return tempData;
+  }
+
+  return tempData;
+};

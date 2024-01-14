@@ -2,24 +2,26 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Form } from "react-bootstrap";
 import { historyPush } from "../../routes/historyPush";
-import { setLoadingStatus, loginUser } from "../../store/actions/authAction";
+import { setLoadingStatus, registerUser } from "../../store/actions/authAction";
 import Loading from "../../components/shared/Loading/Loading";
 
-class Login extends Component {
+class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "",
+      name: "",
       password: "",
       isLoading: false,
 
       /* Error Handling */
       emailError: false,
+      nameError: false,
       passwordError: false,
     };
 
     this.handleUserInput = this.handleUserInput.bind(this);
-    this.handleLoginUser = this.handleLoginUser.bind(this);
+    this.handleRegisterUser = this.handleRegisterUser.bind(this);
   }
 
   componentDidMount() {
@@ -50,6 +52,12 @@ class Login extends Component {
       if (this.state.emailError) {
         this.setState({ emailError: false });
       }
+    } else if (id === "name") {
+      this.setState({ name: value });
+
+      if (this.state.nameError) {
+        this.setState({ nameError: false });
+      }
     } else if (id === "password") {
       this.setState({ password: value });
 
@@ -59,38 +67,47 @@ class Login extends Component {
     }
   }
 
-  handleLoginUser() {
-    const { email, password } = this.state;
-    if (email.trim() !== "" && password.trim() !== "") {
+  handleRegisterUser() {
+    const { email, name, password } = this.state;
+    if (email.trim() !== "" && name.trim() !== "" && password.trim() !== "") {
       const data = {
         email,
+        name,
         password,
+        user_type: 0,
       };
 
-      this.props.loginUser(data);
+      this.props.registerUser(data);
     }
   }
 
   render() {
-    const { email, password, emailError, passwordError, isLoading } =
-      this.state;
+    const {
+      email,
+      name,
+      password,
+      emailError,
+      nameError,
+      passwordError,
+      isLoading,
+    } = this.state;
 
     return (
       <div className="Login">
-        <div className="login-wrapper">
+        <div className="login-wrapper registration-wrapper">
           <div className="row mx-0 px-0 bg-white">
-            <div className="col-lg-6 leftContainer d-flex flex-column">
+            <div className="col-12 leftContainer d-flex flex-column">
               <div className="formContainer container">
                 <div className="row text-center">
                   <div className="col-12 pt-5 mt-5">
-                    <h4>Homework Management System</h4>
+                    <h4>Teacher's Registration</h4>
                   </div>
                 </div>
                 <div className="col-12 pt-3">
                   <div className="row">
                     <div className="col-12">
                       <div className="text-divider">
-                        <small>login with registered account</small>
+                        <small>create an account</small>
                       </div>
                     </div>
                     <div className="col-12">
@@ -108,6 +125,21 @@ class Login extends Component {
                               />
                               {emailError && (
                                 <Form.Text>Email is required</Form.Text>
+                              )}
+                            </Form.Group>
+                          </div>
+                          <div className="col-12 mt-2">
+                            <Form.Group controlId="name">
+                              <Form.Label>Name</Form.Label>
+                              <Form.Control
+                                type="text"
+                                placeholder="Enter your name"
+                                value={name}
+                                className={nameError ? "is-invalid" : ""}
+                                onChange={(e) => this.handleUserInput(e)}
+                              />
+                              {nameError && (
+                                <Form.Text>Name is required</Form.Text>
                               )}
                             </Form.Group>
                           </div>
@@ -131,9 +163,9 @@ class Login extends Component {
                               className="btn main-btn w-100 mt-5"
                               type="button"
                               disabled={isLoading || this.props.auth.isLoading}
-                              onClick={this.handleLoginUser}
+                              onClick={this.handleRegisterUser}
                             >
-                              {!isLoading ? <span>Login</span> : <Loading />}
+                              {!isLoading ? <span>Register</span> : <Loading />}
                             </button>
                           </div>
                         </div>
@@ -143,7 +175,6 @@ class Login extends Component {
                 </div>
               </div>
             </div>
-            <div className="col-lg-6 rightContainer"></div>
           </div>
         </div>
       </div>
@@ -160,7 +191,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   setLoadingStatus: (isLoading) => dispatch(setLoadingStatus(isLoading)),
-  loginUser: (data) => dispatch(loginUser(data)),
+  registerUser: (data) => dispatch(registerUser(data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

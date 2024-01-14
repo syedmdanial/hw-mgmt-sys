@@ -1,12 +1,12 @@
-import { LOGIN_SUCCESS, LOGOUT, UPDATE_LOADING_STATUS } from '../actionTypes';
+import { LOGIN_SUCCESS, LOGOUT, UPDATE_LOADING_STATUS } from "../actionTypes";
 
 const INITIAL_STATE = {
   isLoading: false,
   isLoggedIn: false,
-  token: null,
   user: {
     id: null,
-    name: '',
+    name: "",
+    token: null,
   },
 };
 
@@ -16,6 +16,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLoggedIn: true,
+        user: action.payload.user,
       };
     case UPDATE_LOADING_STATUS:
       return {

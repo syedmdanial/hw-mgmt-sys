@@ -23,10 +23,26 @@ const Topbar = (props) => (
       >
         <Dropdown.Toggle as="div">
           <div className="user-profile">
-            <div className="userProfileImg">
+            <div
+              className={
+                "name-initials " +
+                // (this.props.user.profile_picture_url ? 'd-none' : '')
+                (false ? "d-none" : "")
+              }
+            >
+              {props.data.userInitials}
+            </div>
+            <div
+              className={
+                "userProfileImg " +
+                // (this.props.user.profile_picture_url ? '' : 'd-none')
+                (false ? "" : "d-none")
+              }
+            >
               <img
+                // src={this.props.user.profile_picture_url}
+                src={require("../../../assets/topbar/cyclist.jpg").default}
                 alt="Avatar"
-                src={require("../../../assets/topbar/cyclist.jpg")}
               />
             </div>
           </div>

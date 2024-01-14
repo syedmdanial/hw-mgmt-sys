@@ -62,13 +62,7 @@ const AddHomeworkModal = (props) => {
           <Col>
             <Form.Group controlId="formBasicSubject">
               <Form.Label>Subject</Form.Label>
-              <Select
-                options={[
-                  { value: "subject1", label: "Subject 1" },
-                  { value: "subject2", label: "Subject 2" },
-                  { value: "subject3", label: "Subject 3" },
-                ]}
-              />
+              <Select options={props.options} />
             </Form.Group>
           </Col>
         </Row>

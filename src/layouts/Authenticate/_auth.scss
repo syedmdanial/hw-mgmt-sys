@@ -86,7 +86,7 @@
         font-size: 14px;
       }
 
-      div[aria-label='animation'] {
+      div[aria-label="animation"] {
         height: fit-content !important;
         pointer-events: none;
       }
@@ -126,7 +126,7 @@
 
         &::before,
         &::after {
-          content: '';
+          content: "";
           height: 1px;
           background-color: silver;
           flex-grow: 1;
@@ -247,5 +247,10 @@
         }
       }
     }
+  }
+
+  .registration-wrapper {
+    left: 30%;
+    right: 30%;
   }
 }
