@@ -74,7 +74,7 @@ class Register extends Component {
         email,
         name,
         password,
-        user_type: 0,
+        user_type: 1,
       };
 
       this.props.registerUser(data);

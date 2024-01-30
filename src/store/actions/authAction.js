@@ -14,6 +14,60 @@ export const setLoginSuccess = (res) => ({
   payload: res,
 });
 
+// Check User Password
+export const checkUser = (userData) => (dispatch) => {
+  const data = {
+    email: userData.email,
+  };
+
+  dispatch(setLoadingStatus(true));
+
+  return new Promise((resolve, reject) => {
+    postRequest("/check-password", data, {}, (res) => {
+      dispatch(setLoadingStatus(false));
+
+      console.log(res);
+      if (res.success) {
+        if (res.code === 4007) {
+          toast.success(res.message);
+          resolve(res);
+        } else if (res.code === 4004) {
+          toast.error(res.message);
+          resolve(res);
+        }
+      } else {
+        toast.error(res.message);
+        reject();
+      }
+    });
+  });
+};
+
+// Register Password
+export const registerPassword = (userData) => (dispatch) => {
+  const data = {
+    email: userData.email,
+    password: userData.password,
+  };
+
+  dispatch(setLoadingStatus(true));
+
+  return new Promise((resolve, reject) => {
+    postRequest("/register-password", data, {}, (res) => {
+      dispatch(setLoadingStatus(false));
+
+      console.log(res);
+      if (res.success) {
+        toast.success(res.message);
+        resolve(res);
+      } else {
+        toast.error(res.message);
+        reject();
+      }
+    });
+  });
+};
+
 // Login
 export const loginUser = (loginData) => (dispatch) => {
   // console.log(loginData);
@@ -24,17 +78,20 @@ export const loginUser = (loginData) => (dispatch) => {
 
   dispatch(setLoadingStatus(true));
 
-  postRequest("/login", data, {}, (res) => {
-    dispatch(setLoadingStatus(false));
+  return new Promise((resolve, reject) => {
+    postRequest("/login", data, {}, (res) => {
+      dispatch(setLoadingStatus(false));
 
-    // console.log(res);
-    if (res.success) {
-      dispatch(setLoginSuccess(res.data));
-      toast.success(res.message);
-      historyPush("/homework");
-    } else {
-      toast.error(res.message);
-    }
+      console.log(res);
+      if (res.success) {
+        dispatch(setLoginSuccess(res.data));
+        toast.success(res.message);
+        resolve(res);
+      } else {
+        toast.error(res.message);
+        reject();
+      }
+    });
   });
 };
 

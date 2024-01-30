@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getRequest } from "../../helpers/apiHandlers";
+import { getRequest, postMultipartRequest } from "../../helpers/apiHandlers";
 import { historyPush } from "../../routes/historyPush";
 import {
   getSubjectList,
@@ -40,7 +40,7 @@ class Homework extends Component {
 
   getData() {
     this.setState({ isLoading: true }, () => {
-      getRequest("/homeworkData", {}, (res) => {
+      getRequest("/homeworks", {}, (res) => {
         if (res.success) {
           this.setState({
             isLoading: false,
@@ -59,6 +59,7 @@ class Homework extends Component {
   async getSubjectOptions() {
     try {
       const subjectOptions = await this.props.getSubjectList();
+      console.log(subjectOptions);
       let _options = dataModeling(subjectOptions, "subject");
       this.setState({ subjectOptions: _options });
     } catch (err) {
@@ -101,10 +102,48 @@ class Homework extends Component {
     }
   }
 
-  handleSaveAddHomework(data) {
+  async handleSaveAddHomework(data) {
     console.log("[Add] save homework");
-    data.user = this.props.user;
-    this.props.addHomework(data);
+    data.token = this.props.user.token;
+    // console.log(data);
+    // const formData = new FormData();
+
+    // // Append each data field to the formData object
+    // for (const key in data) {
+    //   console.log(key, data[key]);
+    //   formData.append(key, data[key]);
+    // }
+
+    // console.log({ formData });
+    try {
+      const res = await this.props.addHomework(data);
+      if (res.success) {
+        this.getData();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+    // try {
+    //   // Make the API call directly in the component
+    //   const response = await postMultipartRequest(
+    //     "/homework",
+    //     data,
+    //     this.props.user.token
+    //   );
+
+    //   console.log(response);
+    //   if (response.success) {
+    //     // Handle success if needed
+    //     console.log("Homework added successfully:", response.data);
+    //   } else {
+    //     // Handle failure if needed
+    //     console.error("Failed to add homework:", response.error);
+    //   }
+    // } catch (error) {
+    //   // Handle any unexpected errors
+    //   console.error("Error adding homework:", error);
+    // }
   }
 
   handleSaveEditHomework() {
@@ -120,6 +159,7 @@ class Homework extends Component {
           data={{ isLoading, homework }}
           handleAction={(e, id) => this.handleAction(e, id)}
           handleCloseAddHomeworkModal={this.handleCloseAddHomeworkModal}
+          options={subjectOptions}
         />
         {this.state.showAddHomeworkModal && (
           <AddHomeworkModal

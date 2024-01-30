@@ -6,13 +6,21 @@ import Loading from "../shared/Loading/Loading";
 import NoData from "../shared/NoData/NoData";
 
 const HomeworkTable = (props) => {
-  const { data } = props;
+  const { data, options } = props;
   const { homework, isLoading } = data;
 
   const [searchText, setSearchText] = useState("");
 
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
+  };
+
+  const getSubjectLabel = (id) => {
+    let _subject = null;
+    _subject = options.find((option) => option.id === id);
+    _subject = _subject.label;
+
+    return _subject;
   };
 
   return (
@@ -71,11 +79,12 @@ const HomeworkTable = (props) => {
           {!isLoading &&
             homework.length > 0 &&
             homework.map((item) => (
-              <tr key={item.id}>
+              <tr key={item._id}>
+                {}
                 <td>{item.title}</td>
-                <td>{item.subject.label}</td>
-                <td>{item.dueDate}</td>
-                <td>{item.noOfSubmissions}</td>
+                <td>{getSubjectLabel(item.subject_id)}</td>
+                <td>{item.due_date}</td>
+                <td>{item.submission}</td>
                 <td>
                   <Dropdown>
                     <Dropdown.Toggle

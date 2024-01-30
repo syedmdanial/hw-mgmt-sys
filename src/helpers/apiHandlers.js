@@ -4,15 +4,11 @@ import config from "../configs/constant";
 export const API_BASE_URL = config.urls.api_base_url;
 
 const prepareResponse = (response) => {
+  console.log({ response });
   let err = false;
   let error_message = "";
   if (response.data.data === undefined) {
     error_message = "Api Failed to fetch the data";
-    err = true;
-  }
-
-  if (response.data && response.status !== 200) {
-    error_message = response.data.statusText;
     err = true;
   }
 
@@ -22,7 +18,7 @@ const prepareResponse = (response) => {
       error: true,
       message: error_message,
       status: response.data.status,
-      code: response.data.status,
+      code: response.data.code,
       data: response.data.data || {},
     };
   } else {
@@ -31,7 +27,7 @@ const prepareResponse = (response) => {
       error: false,
       message: response.data.statusText,
       status: response.data.status,
-      code: response.data.status,
+      code: response.data.code,
       data: response.data.data,
     };
 
@@ -44,14 +40,26 @@ const prepareResponse = (response) => {
 
 // Prepare catch
 const prepareCatchResponse = (err) => {
-  return {
-    success: false,
-    error: true,
-    message: err.response.data.statusText,
-    status: err.response.data.status,
-    code: err.response.data.status,
-    data: {},
-  };
+  console.log({ err });
+  if (err.response) {
+    return {
+      success: false,
+      error: true,
+      message: err.response.data.statusText,
+      status: err.response.data.status,
+      code: err.response.data.code,
+      data: {},
+    };
+  } else {
+    return {
+      success: false,
+      error: true,
+      message: "Internal Server Error",
+      status: 500,
+      code: 500,
+      data: {},
+    };
+  }
 };
 
 // Post request without access token
@@ -115,14 +123,23 @@ export const postRequest = (url, data, token, next) => {
 };
 
 export const postMultipartRequest = (url, data, token, next) => {
-  const headers = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "multipart/form-data",
-    },
-  };
+  const formData = new FormData();
+
+  // Append each data field to the formData object
+  for (const key in data) {
+    formData.append(key, data[key]);
+  }
+
+  // // Append the Authorization header to the formData
+  // formData.append(");
+
   axios
-    .post(API_BASE_URL + url, data, headers)
+    .post(API_BASE_URL + url, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    })
     .then((response) => {
       next(prepareResponse(response));
     })

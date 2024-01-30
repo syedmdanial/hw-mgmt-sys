@@ -59,7 +59,7 @@ const AddHomeworkModal = (props) => {
     ) {
       const data = {
         title,
-        subject,
+        subject_id: subject.id,
         file,
         dueDate: dueDate.toISOString(),
       };

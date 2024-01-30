@@ -4,41 +4,35 @@ import { Form } from "react-bootstrap";
 import { historyPush } from "../../routes/historyPush";
 import {
   setLoadingStatus,
-  loginUser,
-  checkUser,
+  registerPassword,
 } from "../../store/actions/authAction";
 import Loading from "../../components/shared/Loading/Loading";
 
-class Login extends Component {
+class CreatePassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "",
+      name: "",
       password: "",
       isLoading: false,
-      code: null,
 
       /* Error Handling */
-      emailError: false,
       passwordError: false,
     };
 
     this.handleUserInput = this.handleUserInput.bind(this);
-    this.handleCheckUser = this.handleCheckUser.bind(this);
-    this.handleLoginUser = this.handleLoginUser.bind(this);
+    this.handleRegisterPassword = this.handleRegisterPassword.bind(this);
   }
 
   componentDidMount() {
-    if (this.props.location.search === "") {
-      if (this.props.auth.isLoggedIn) {
-        historyPush("/homework");
-      } else {
-        this.props.setLoadingStatus(false);
+    if (this.props.location.state) {
+      if (this.props.location.state.data) {
+        const { email, name } = this.props.location.state.data;
+        this.setState({ email, name });
       }
     } else {
-      if (this.props.auth.isLoggedIn) {
-        this.props.onLogout();
-      }
+      historyPush("/login");
     }
   }
 
@@ -50,13 +44,7 @@ class Login extends Component {
     const id = e.target.id;
     const { value } = e.target;
 
-    if (id === "email") {
-      this.setState({ email: value });
-
-      if (this.state.emailError) {
-        this.setState({ emailError: false });
-      }
-    } else if (id === "password") {
+    if (id === "password") {
       this.setState({ password: value });
 
       if (this.state.passwordError) {
@@ -65,36 +53,21 @@ class Login extends Component {
     }
   }
 
-  async handleCheckUser() {
-    const { email } = this.state;
-    if (email.trim() !== "") {
-      const data = { email };
-
-      try {
-        const res = await this.props.checkUser(data);
-        console.log(res);
-        this.setState({ code: res.code }, () => {
-          if (res.code === 4004)
-            this.props.history.push({
-              pathname: "/create-password",
-              state: { data: res.data },
-            });
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  }
-
-  async handleLoginUser() {
-    const { email, password } = this.state;
-    if (email.trim() !== "" && password.trim() !== "") {
-      const data = { email, password };
+  async handleRegisterPassword() {
+    const { email, name, password } = this.state;
+    if (email.trim() !== "" && name.trim() !== "" && password.trim() !== "") {
+      const data = {
+        email,
+        name,
+        password,
+        user_type: 1,
+      };
 
       try {
         const res = await this.props.loginUser(data);
-        console.log(res);
-        if (res.success) historyPush("/homework");
+        if (res.success) {
+          if (res.code === 4009) historyPush("/login");
+        }
       } catch (err) {
         console.log(err);
       }
@@ -102,25 +75,32 @@ class Login extends Component {
   }
 
   render() {
-    const { email, password, emailError, passwordError, isLoading, code } =
-      this.state;
+    const {
+      email,
+      name,
+      password,
+      emailError,
+      nameError,
+      passwordError,
+      isLoading,
+    } = this.state;
 
     return (
       <div className="Login">
-        <div className="login-wrapper">
+        <div className="login-wrapper registration-wrapper">
           <div className="row mx-0 px-0 bg-white">
-            <div className="col-lg-6 leftContainer d-flex flex-column">
+            <div className="col-12 leftContainer d-flex flex-column">
               <div className="formContainer container">
                 <div className="row text-center">
                   <div className="col-12 pt-5 mt-5">
-                    <h4>Homework Management System</h4>
+                    <h4>Student's Registration</h4>
                   </div>
                 </div>
                 <div className="col-12 pt-3">
                   <div className="row">
                     <div className="col-12">
                       <div className="text-divider">
-                        <small>login with registered account</small>
+                        <small>Enter your password to create account</small>
                       </div>
                     </div>
                     <div className="col-12">
@@ -135,43 +115,53 @@ class Login extends Component {
                                 value={email}
                                 className={emailError ? "is-invalid" : ""}
                                 onChange={(e) => this.handleUserInput(e)}
-                                disabled={code && code === 4007}
+                                disabled={true}
                               />
                               {emailError && (
                                 <Form.Text>Email is required</Form.Text>
                               )}
                             </Form.Group>
                           </div>
-                          {code && code === 4007 && (
-                            <div className="col-12 mt-2">
-                              <Form.Group controlId="password">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control
-                                  type="password"
-                                  placeholder="Enter your password"
-                                  value={password}
-                                  className={passwordError ? "is-invalid" : ""}
-                                  onChange={(e) => this.handleUserInput(e)}
-                                />
-                                {passwordError && (
-                                  <Form.Text>Password is required</Form.Text>
-                                )}
-                              </Form.Group>
-                            </div>
-                          )}
+                          <div className="col-12 mt-2">
+                            <Form.Group controlId="name">
+                              <Form.Label>Name</Form.Label>
+                              <Form.Control
+                                type="text"
+                                placeholder="Enter your name"
+                                value={name}
+                                className={nameError ? "is-invalid" : ""}
+                                onChange={(e) => this.handleUserInput(e)}
+                                disabled={true}
+                              />
+                              {nameError && (
+                                <Form.Text>Name is required</Form.Text>
+                              )}
+                            </Form.Group>
+                          </div>
+                          <div className="col-12 mt-2">
+                            <Form.Group controlId="password">
+                              <Form.Label>Password</Form.Label>
+                              <Form.Control
+                                type="password"
+                                placeholder="Enter your password"
+                                value={password}
+                                className={passwordError ? "is-invalid" : ""}
+                                onChange={(e) => this.handleUserInput(e)}
+                              />
+                              {passwordError && (
+                                <Form.Text>Password is required</Form.Text>
+                              )}
+                            </Form.Group>
+                          </div>
                           <div className="col-12">
                             <button
                               className="btn main-btn w-100 mt-5"
                               type="button"
                               disabled={isLoading || this.props.auth.isLoading}
-                              onClick={
-                                code
-                                  ? this.handleLoginUser
-                                  : this.handleCheckUser
-                              }
+                              onClick={this.handleRegisterUser}
                             >
                               {!isLoading ? (
-                                <span>{code ? "Login" : "Submit"}</span>
+                                <span>Create Password</span>
                               ) : (
                                 <Loading />
                               )}
@@ -184,7 +174,6 @@ class Login extends Component {
                 </div>
               </div>
             </div>
-            <div className="col-lg-6 rightContainer"></div>
           </div>
         </div>
       </div>
@@ -201,8 +190,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   setLoadingStatus: (isLoading) => dispatch(setLoadingStatus(isLoading)),
-  loginUser: (data) => dispatch(loginUser(data)),
-  checkUser: (data) => dispatch(checkUser(data)),
+  registerPassword: (data) => dispatch(registerPassword(data)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(CreatePassword);
